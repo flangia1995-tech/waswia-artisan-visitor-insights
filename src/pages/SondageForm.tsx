@@ -1,20 +1,20 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { VisiteurFormData } from "@/types/questionnaire";
-import { defaultVisiteurData } from "@/data/questionnaireData";
+import { SondageDroitFormData } from "@/types/questionnaire";
+import { defaultSondageData } from "@/data/questionnaireData";
 import { FormHeader, FormNavigation } from "@/components/form/FormNavigation";
-import { VisiteurSectionA, VisiteurSectionB, VisiteurSectionC, VisiteurSectionD, VisiteurSectionE, VisiteurSectionF, VisiteurSectionG } from "@/components/visiteur/VisiteurSections";
+import { Thematique1, Thematique2, Thematique3, Thematique4, Thematique5 } from "@/components/sondage/SondageSections";
 import { toast } from "@/hooks/use-toast";
 
-const VisiteurForm = () => {
+const SondageForm = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState<VisiteurFormData>(defaultVisiteurData);
+  const [formData, setFormData] = useState<SondageDroitFormData>(defaultSondageData);
 
-  const totalSteps = 7;
+  const totalSteps = 5;
 
-  const updateData = (updates: Partial<VisiteurFormData>) => {
+  const updateData = (updates: Partial<SondageDroitFormData>) => {
     setFormData((prev) => ({ ...prev, ...updates }));
   };
 
@@ -30,9 +30,9 @@ const VisiteurForm = () => {
     setIsSubmitting(true);
     try {
       await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log("Visiteur data:", formData);
-      toast({ title: "Succès", description: "Questionnaire envoyé avec succès!" });
-      navigate("/confirmation/visiteur");
+      console.log("Sondage data:", formData);
+      toast({ title: "Succès", description: "Sondage envoyé avec succès!" });
+      navigate("/confirmation");
     } catch (error) {
       toast({ title: "Erreur", description: "Une erreur est survenue", variant: "destructive" });
     } finally {
@@ -43,20 +43,18 @@ const VisiteurForm = () => {
   const renderSection = () => {
     const props = { data: formData, updateData };
     switch (currentStep) {
-      case 0: return <VisiteurSectionA {...props} />;
-      case 1: return <VisiteurSectionB {...props} />;
-      case 2: return <VisiteurSectionC {...props} />;
-      case 3: return <VisiteurSectionD {...props} />;
-      case 4: return <VisiteurSectionE {...props} />;
-      case 5: return <VisiteurSectionF {...props} />;
-      case 6: return <VisiteurSectionG {...props} />;
+      case 0: return <Thematique1 {...props} />;
+      case 1: return <Thematique2 {...props} />;
+      case 2: return <Thematique3 {...props} />;
+      case 3: return <Thematique4 {...props} />;
+      case 4: return <Thematique5 {...props} />;
       default: return null;
     }
   };
 
   return (
     <div className="min-h-screen bg-background pb-32">
-      <FormHeader title="Questionnaire Visiteurs" onBack={() => navigate("/")} />
+      <FormHeader title="Sondage sur le Droit" onBack={() => navigate("/")} />
       <main className="max-w-lg mx-auto px-4 py-6">{renderSection()}</main>
       <FormNavigation
         currentStep={currentStep}
@@ -70,4 +68,4 @@ const VisiteurForm = () => {
   );
 };
 
-export default VisiteurForm;
+export default SondageForm;
