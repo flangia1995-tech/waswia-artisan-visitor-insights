@@ -4,8 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
-import ArtisanForm from "./pages/ArtisanForm";
-import VisiteurForm from "./pages/VisiteurForm";
+import SondageForm from "./pages/SondageForm";
 import Confirmation from "./pages/Confirmation";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
@@ -20,10 +19,8 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/artisan" element={<ArtisanForm />} />
-          <Route path="/visiteur" element={<VisiteurForm />} />
-          <Route path="/confirmation/artisan" element={<Confirmation type="artisan" />} />
-          <Route path="/confirmation/visiteur" element={<Confirmation type="visiteur" />} />
+          <Route path="/sondage" element={<SondageForm />} />
+          <Route path="/confirmation" element={<Confirmation />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
